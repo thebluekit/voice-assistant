@@ -1,6 +1,6 @@
 from model.skill.skill_publisher import SkillPublisher
 from model.skill.skill_validator import SkillValidator
-from model.skill import skill_info
+from model.skill import skill_informer as skill_info
 
 
 skill_publisher = SkillPublisher()
