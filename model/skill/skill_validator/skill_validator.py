@@ -1,25 +1,11 @@
 from model.sentence_upload import sentence_converter
-from controller.skill_validation import validationError
+from model.skill.skill_validator import validationError
 
 
 sc = sentence_converter.SentenceConverter()
 
 
-def check_word_in_sentence(sentence: str, word: str):
-    if word == "":
-        return True
-
-    words = sc.get_words_from_sentence(sentence)
-    word = sc.get_pure_word(word)
-
-    if word in words:
-        return True
-    else:
-        return False
-
-
 def check_skill_properties(skill_properties, step):
-    # print(skill_properties)
     if step >= 1:
         try:
             check_general_information(skill_properties)
@@ -54,6 +40,19 @@ def check_skill_properties(skill_properties, step):
             return validationError.SkillScriptError().message
 
     return 'OK'
+
+
+def check_word_in_sentence(sentence: str, word: str):
+    if word == "":
+        return True
+
+    words = sc.get_words_from_sentence(sentence)
+    word = sc.get_pure_word(word)
+
+    if word in words:
+        return True
+    else:
+        return False
 
 
 def check_general_information(skill_properties):

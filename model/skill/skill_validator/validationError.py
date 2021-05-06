@@ -1,4 +1,4 @@
-from controller.skill_validation import validation_messages
+from model.skill.skill_validator import validation_messages
 
 
 class SkillNameError(Exception):

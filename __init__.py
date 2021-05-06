@@ -1,15 +1,11 @@
-from controller.market import publish_skill
-from controller.skill_validation import skill_checker
+from controller.skill_upload import upload_skill
+
 
 from flask import Flask, request
 from dotenv import load_dotenv
 import os
 
 
-from controller.market import constants
-
-
-SKILLS_FOLDER = constants.SKILLS_FOLDER
 if __name__ == '__main__':
     load_dotenv()
     HOST_IP = os.getenv("HOST_IP")
@@ -30,18 +26,7 @@ if __name__ == '__main__':
     @app.route('/addSkill', methods=['POST'])
     def add_skill():
         data = request.json
-
-        skill_step = publish_skill.get_skill_step(data)
-        check_data = skill_checker.check_skill_properties(data, skill_step)
-
-        if check_data != 'OK':
-            return check_data
-
-        skill_properties = publish_skill.get_skill_properties(data)
-        skill_script = publish_skill.get_skill_script(data)
-
-        publish_skill.skill_upload(skill_properties, skill_script)
-
-        return 'OK'
+        upload_status = upload_skill(data)
+        return upload_status
 
     app.run(debug=True, host='localhost', port=PORT)
