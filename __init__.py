@@ -1,4 +1,4 @@
-from controller.skill_upload import upload_skill
+from controller.skill_upload import upload_skill, check_skill
 
 
 from flask import Flask, request
@@ -28,5 +28,11 @@ if __name__ == '__main__':
         data = request.json
         upload_status = upload_skill(data)
         return upload_status
+
+    @app.route('/checkSkill', methods=['POST'])
+    def check_skill():
+        data = request.json
+        validation_status = check_skill(data)
+        return validation_status
 
     app.run(debug=True, host='localhost', port=PORT)
