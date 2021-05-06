@@ -1,7 +1,7 @@
-from model.sentence_upload.sentence_converter import SentenceConverter
+from model.sentence.converter import SentenceConverter
 
 
-class SentenceManager:
+class SentenceUploader:
     sentence_converter = SentenceConverter()
 
     def __init__(self, cypher_manager):

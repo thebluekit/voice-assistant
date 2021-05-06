@@ -1,8 +1,8 @@
-from model.sentence_upload import sentence_converter
+from model.sentence.converter import SentenceConverter
 from model.skill.skill_validator import validationError
 
 
-sc = sentence_converter.SentenceConverter()
+sc = SentenceConverter()
 
 
 def check_skill_properties(skill_properties, step):

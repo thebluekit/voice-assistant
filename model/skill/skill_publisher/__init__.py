@@ -1,7 +1,7 @@
 from model.skill.skill_publisher import skill_saver
 from model.skill.skill_validator import SkillValidator
 from model.skill import constants
-from model.skill import skill_info
+from model.skill import skill_informer as skill_info
 
 
 class SkillPublisher:
