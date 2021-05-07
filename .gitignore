@@ -5,3 +5,4 @@ __pycache__/
 public/
 .pytest_cache/
 venv/
+skills/

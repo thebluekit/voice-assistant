@@ -1,8 +1,10 @@
 import json
+from shutil import copyfile
 from model.skill import constants
 
 
 SKILLS_FOLDER = constants.SKILLS_FOLDER
+SCRIPTS_FOLDER = constants.SCRIPTS_FOLDER
 
 
 class SkillInstaller:
@@ -27,4 +29,13 @@ class SkillInstaller:
             context = skill_sentence['normalized_context']
 
             self.db_manager.upload_sentence(sentence, skill_name, action, entity, context)
+        self.__save_script(skill_id, skill_name)
         return 'OK'
+
+    @staticmethod
+    def __save_script(skill_id: int, skill_name: str):
+        folder = str(skill_id)
+        script_path = SKILLS_FOLDER + folder + '/' + "script.py"
+        new_script_path = SCRIPTS_FOLDER + skill_name + ".py"
+        copyfile(script_path, new_script_path)
+
