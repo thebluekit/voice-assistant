@@ -29,8 +29,8 @@ class CypherManager:
         try:
             graph = py2neo.Graph(ip_address, password=password)
             return graph
-        except py2neo.database.work.ClientError:
-            raise cypherError.LoginError() from None
+        # except py2neo.database.work.ClientError:
+        #     raise cypherError.LoginError() from None
         except AttributeError:
             raise cypherError.ConnectionProfileError()
         except Exception as ex:

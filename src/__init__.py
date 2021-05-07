@@ -1,4 +1,4 @@
-from controller.skill_upload import upload_skill, check_skill
+from src.controller.skill_upload import upload_skill, check_skill
 
 
 from flask import Flask, request

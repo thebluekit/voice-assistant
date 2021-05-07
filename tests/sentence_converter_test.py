@@ -1,4 +1,4 @@
-from model.sentence_upload.sentence_converter import SentenceConverter
+from model.sentence.converter import SentenceConverter
 
 import pytest
 
