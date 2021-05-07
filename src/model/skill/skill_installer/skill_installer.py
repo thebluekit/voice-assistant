@@ -1,4 +1,4 @@
-from controller.market import constants
+from model.skill import constants
 import json
 
 

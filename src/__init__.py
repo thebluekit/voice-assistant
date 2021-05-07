@@ -1,5 +1,8 @@
-from src.controller.skill_upload import upload_skill, check_skill
-
+from controller.skill_upload import upload_skill, check_skill
+from controller.skill_install import install_skill
+from model.database.cypher import CypherManager
+from model.sentence.uploader import SentenceUploader
+from model.skill.skill_installer import SkillInstaller
 
 from flask import Flask, request
 from dotenv import load_dotenv
@@ -10,6 +13,11 @@ if __name__ == '__main__':
     load_dotenv()
     HOST_IP = os.getenv("HOST_IP")
     PORT = os.getenv("PORT")
+
+    cm = CypherManager()
+    cm.delete_all_nodes()
+    db_manager = SentenceUploader(cm)
+    skill_installer = SkillInstaller(db_manager)
 
     app = Flask(__name__)
 
@@ -34,5 +42,10 @@ if __name__ == '__main__':
         data = request.json
         validation_status = check_skill(data)
         return validation_status
+
+    @app.route('/installSkill')
+    def install_selected_skill():
+        install_skill(skill_installer, '1')
+        return 'OK'
 
     app.run(debug=True, host='localhost', port=PORT)
