@@ -1,8 +1,8 @@
 import pytest
 
 from py2neo.database import Graph
-from src.model.database.cypher import CypherManager
-from src.model.database.cypher import cypherError
+from model.database.cypher import CypherManager
+from model.database.cypher import cypherError
 
 
 class TestCypherConnect:
