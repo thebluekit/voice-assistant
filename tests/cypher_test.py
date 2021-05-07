@@ -6,9 +6,9 @@ from model.database.cypher import cypherError
 
 
 class TestCypherConnect:
-    def test_dotenv_config(self):
-        cm = CypherManager()
-        assert type(cm.graph) == Graph
+    # def test_dotenv_config(self):
+    #     cm = CypherManager()
+    #     assert type(cm.graph) == Graph
 
     # def test_wrong_password_config(self):
     #     link = "http://localhost:7474/db/data/"
