@@ -20,7 +20,7 @@ class SentenceConverter:
     def __sentence_to_list(sentence: str):
         return sentence.split(' ')
 
-    def __get_words_normal_form(self, words: list):
+    def get_words_normal_form(self, words: list):
         normal_words = []
 
         for word in words:
@@ -31,7 +31,7 @@ class SentenceConverter:
     def get_words_from_sentence(self, sentence: str):
         pure_sentence = self.__get_pure_sentence(sentence)
         words = self.__sentence_to_list(pure_sentence)
-        normal_words = self.__get_words_normal_form(words)
+        normal_words = self.get_words_normal_form(words)
         return normal_words
 
     @staticmethod

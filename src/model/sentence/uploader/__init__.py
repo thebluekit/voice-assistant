@@ -11,8 +11,16 @@ class SentenceUploader:
         return self.sentence_converter.get_words_from_sentence(sentence)
 
     def upload_sentence(self, sentence, script_name, action, entity, context):
+        action = self.sentence_converter.get_words_normal_form(action)
+        entity = self.sentence_converter.get_words_normal_form(entity)
+        context = self.sentence_converter.get_words_normal_form(context)
+        print(action, entity, context)
         words = self.get_words_from_sentence(sentence)
         nodes = self.sentence_converter.get_nodes_from_words(words, script_name, action, entity, context)
+
+        for n in nodes:
+            print(n)
+        print('='*50)
 
         nodes[0] = self.__upload_word(nodes[0])
         for i in range(1, len(nodes)):

@@ -10,13 +10,13 @@ class SkillInstaller:
         self.db_manager = db_manager
 
     @staticmethod
-    def __unpack_skill(skill_id):
+    def __unpack_skill(skill_id: int):
         properties_path = constants.SKILLS_FOLDER + str(skill_id) + '/' + constants.SKILL_JSON_NAME
         with open(properties_path) as json_file:
             skill_properties = json.load(json_file)
             return skill_properties
 
-    def install(self, skill_id):
+    def install(self, skill_id: int):
         skill_properties = self.__unpack_skill(skill_id)
         skill_name = skill_properties['skillName']
         skill_sentences = skill_properties['phrases']

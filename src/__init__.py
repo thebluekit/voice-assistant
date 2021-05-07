@@ -48,7 +48,7 @@ if __name__ == '__main__':
 
     @app.route('/installSkill')
     def install_selected_skill():
-        install_skill(skill_installer, '1')
+        install_skill(skill_installer, '0')
         return 'OK'
 
     app.run(debug=True, host='localhost', port=PORT)
