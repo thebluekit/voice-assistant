@@ -4,7 +4,7 @@ from model.database.cypher import CypherManager
 from model.sentence.uploader import SentenceUploader
 from model.skill.skill_installer import SkillInstaller
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 from dotenv import load_dotenv
 import os
 
@@ -30,6 +30,9 @@ if __name__ == '__main__':
             'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
         return response
 
+    @app.route('/')
+    def index():
+        return render_template("index.html")
 
     @app.route('/addSkill', methods=['POST'])
     def add_skill():

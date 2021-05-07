@@ -1,0 +1,224 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    /* background: #F4F6F9;
+     */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    position: absolute;
+    /* background: #F4F6F9; */
+    /* border: 1px solid red; */
+    /* width: 85%; */
+    width: 85%;
+    /* width: 1200px; */
+    height: 99%;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-header {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    margin-bottom: 10px;
+    flex: 1;
+    /* border: 1px solid red; */
+}
+
+.title-text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 56px;
+    margin-bottom: 0;
+}
+
+.title-description {
+    margin-top: 6px;
+    max-width: 450px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #898989;
+}
+
+.create-skill {
+    margin-left: auto;
+}
+
+.create-skill-btn {
+    background-color: #FFFFFF;
+    border: 2px solid #EBEBEB;
+    box-sizing: border-box;
+    border-radius: 61px;
+    color: black;
+    padding: 10px 55px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    transition: all 0.7s ease;
+    min-width: 190px
+}
+
+.create-skill-btn:hover {
+    background-color: #EBEBEB;
+    color: #3C3C3C;
+    cursor: pointer;
+}
+
+.create-skill-btn:focus {
+    outline: none !important;
+}
+
+
+/* .create-skill-btn:active {
+    border: 2px solid black;
+} */
+
+.skills-container {
+    flex: 6;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* border: 1px solid green; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-family: Roboto;
+    color: white;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* border: 1px solid red; */
+}
+
+.skill-content {
+    width: 20%;
+    height: 100%;
+    border-radius: 8px;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.7s ease;
+}
+
+.skill-content:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+}
+
+.skill-number {
+    padding: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 62px;
+    /* line-height: 61px; */
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.skill-description {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: auto;
+}
+
+.skill-date {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    /* line-height: 13px; */
+    margin-bottom: 10px;
+}
+
+.skill-name {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    /* line-height: 23px; */
+    margin-top: 0px;
+    margin-bottom: 0;
+}
+
+.skill-description-text {
+    padding: 10px;
+    margin-top: 3px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    /* line-height: 13px; */
+}
+
+.skill-green {
+    background: linear-gradient(159.59deg, #C3C5C4 0%, #359369 100%);
+}
+
+.skill-purple {
+    background: linear-gradient(159.59deg, #E78486 0%, #B8B7EB 100%);
+}
+
+.skill-red {
+    background: linear-gradient(159.59deg, #BFBCBC 0%, #EF4420 100%);
+}
+
+.skill-gray {
+    background: linear-gradient(159.59deg, #D7D8D8 0%, #334563 100%);
+}
+
+.skill-blue {
+    background: linear-gradient(159.59deg, #81C9C6 0%, #12A59D 100%);
+}
+
+.more-skills {
+    /* margin-top: 14px; */
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+
+.arrow svg {
+    width: 30px;
+    height: 30px;
+    fill: #898989;
+    margin-left: 50px;
+    margin-right: 50px;
+    transition: all 0.7s ease;
+}
+
+.arrow svg:hover {
+    fill: black;
+    cursor: pointer;
+}
+
+.right svg {
+    transform: rotate(180deg);
+}
+
+.none-visability {
+    visibility: hidden;
+    display: none;
+}
