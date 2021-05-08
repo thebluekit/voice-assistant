@@ -5,7 +5,8 @@ from model.skill import constants
 from random import sample
 
 SCRIPTS_FOLDER = constants.SCRIPTS_FOLDER
-
+STANDARD_SCRIPT = constants.STANDARD_SCRIPT
+STANDARD_PARAMS = constants.STANDARD_PARAMS
 
 class MessageRecognizer:
     ERROR_MESSAGE = 'NOT_RECOGNIZED'
@@ -19,6 +20,8 @@ class MessageRecognizer:
         for word in words:
             node = Node(node_params={"name": word}, node_type='word')
             cypher_nodes = self.cypher_manager.get_nodes_by_name(node)
+            if len(cypher_nodes) == 0:
+                return []
             nodes.append(cypher_nodes[0])
         return nodes
 
@@ -29,6 +32,7 @@ class MessageRecognizer:
             'entity': set(),
             'context': set()
         }
+
         for i in range(len(cypher_nodes)):
             action = cypher_nodes[i].node_params['action']
             entity = cypher_nodes[i].node_params['entity']
@@ -81,16 +85,22 @@ class MessageRecognizer:
 
         return params
 
+    def get_standard_script(self):
+        script_name = STANDARD_SCRIPT
+        script_params = STANDARD_PARAMS
+        script_path = self.__get_full_script_path(script_name)
+        return script_path, script_params
+
     def recognize_script(self, message):
         words = self.sc.get_words_from_sentence(message)
         cypher_nodes = self.__get_cypher_nodes(words)
 
         if len(words) != len(cypher_nodes):
-            return self.ERROR_MESSAGE
+            return self.get_standard_script()
 
         relations = self.__check_relations(cypher_nodes)
         if not relations:
-            return self.ERROR_MESSAGE
+            return self.get_standard_script()
 
         script_name = self.__get_script(cypher_nodes)
         script_params = self.__get_script_params(cypher_nodes, script_name)

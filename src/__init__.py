@@ -62,7 +62,6 @@ if __name__ == '__main__':
         message = request.args.get("message")
         assistant = Assistant(cypher_manager=cm)
         answer = assistant.get_answer(message)
-        print(answer)
         return answer
 
     app.run(debug=True, host='localhost', port=PORT)

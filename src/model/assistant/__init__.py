@@ -28,6 +28,6 @@ class Assistant:
         script_path = recognize_result[0]
         script_params = recognize_result[1]
         script_result = self.__get_script_result(script_path, message, script_params)
-        answer = script_result
+        answer = str(script_result)
 
         return answer
