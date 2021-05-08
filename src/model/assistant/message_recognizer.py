@@ -53,6 +53,34 @@ class MessageRecognizer:
     def __get_full_script_path(script_name):
         return SCRIPTS_FOLDER + script_name + '.py'
 
+    @staticmethod
+    def __get_script_params(cypher_nodes, script_name):
+        params = {
+            'action': [],
+            'entity': [],
+            'context': []
+        }
+
+        for i in range(len(cypher_nodes)):
+            action = cypher_nodes[i].node_params['action']
+            entity = cypher_nodes[i].node_params['entity']
+            context = cypher_nodes[i].node_params['context']
+            word = cypher_nodes[i].node_params['name']
+
+            if len(action) != 0:
+                if script_name in action:
+                    params['action'].append(word)
+
+            if len(entity) != 0:
+                if script_name in entity:
+                    params['entity'].append(word)
+
+            if len(context) != 0:
+                if script_name in context:
+                    params['context'].append(word)
+
+        return params
+
     def recognize_script(self, message):
         words = self.sc.get_words_from_sentence(message)
         cypher_nodes = self.__get_cypher_nodes(words)
@@ -65,6 +93,7 @@ class MessageRecognizer:
             return self.ERROR_MESSAGE
 
         script_name = self.__get_script(cypher_nodes)
-        script_path = self.__get_full_script_path(script_name)
+        script_params = self.__get_script_params(cypher_nodes, script_name)
 
-        return script_path
+        script_path = self.__get_full_script_path(script_name)
+        return script_path, script_params
