@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Assistant</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo/favicon.ico') }}" type="image/x-icon">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+<div class="main-container">
+    <header class="top-container">
+        <div class="options-box">
+            <div class="icon-box" align="right">
+                <img src="{{ url_for('static', filename='img/icons/info.png') }}" alt="">
+            </div>
+        </div>
+    </header>
+    <div class="messages" id="messages_field">
+        <div class="message-box">
+            <div class="bot-message">
+                <p></p>
+            </div>
+        </div>
+        <div class="message-box">
+            <div class="user-message">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <footer class="bottom-container">
+        <div class="input-box">
+            <input placeholder="Сообщение..." onkeydown="send_message(this)" id="message-field">
+        </div>
+        <div class="send-box" align="right">
+            <input type="image" src="{{ url_for('static', filename='img/icons/sent.png') }}" onclick="send_message(this)"/>
+        </div>
+    </footer>
+</div>
+<script src="{{ url_for('static', filename='animations.js') }}"></script>
+</body>
+</html>

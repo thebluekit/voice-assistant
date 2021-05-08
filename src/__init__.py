@@ -32,9 +32,13 @@ if __name__ == '__main__':
             'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
         return response
 
+    @app.route('/marketplace')
+    def render_marketplace():
+        return render_template("marketplace.html")
+
     @app.route('/')
-    def index():
-        return render_template("index.html")
+    def render_assistant():
+        return render_template("assistant.html")
 
     @app.route('/addSkill', methods=['POST'])
     def add_skill():
@@ -53,10 +57,11 @@ if __name__ == '__main__':
         install_skill(skill_installer, '0')
         return 'OK'
 
-    @app.route('/test')
-    def test():
+    @app.route('/getMessage')
+    def get_message():
+        message = request.args.get("message")
         assistant = Assistant(cypher_manager=cm)
-        answer = assistant.get_answer('Сколько сейчас времени?')
+        answer = assistant.get_answer(message)
         print(answer)
         return answer
 
