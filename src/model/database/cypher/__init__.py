@@ -160,6 +160,13 @@ class CypherManager:
             nodes.append({"node": node, "relation_type": relation_type})
         return nodes
 
+    def check_relation(self, node_1: Node, node_2: Node):
+        node_1_relations = self.get_relations(node_1, 'to')
+        for relation_node in node_1_relations:
+            if relation_node['node'] == node_2:
+                return True
+        return False
+
     def get_all_nodes(self, limit: int = -1):
         query = "MATCH (n) RETURN n, ID(n)"
         if limit > 0:

@@ -4,6 +4,8 @@ from model.database.cypher import CypherManager
 from model.sentence.uploader import SentenceUploader
 from model.skill.skill_installer import SkillInstaller
 
+from model.assistant import Assistant
+
 from flask import Flask, request, render_template
 from dotenv import load_dotenv
 import os
@@ -15,7 +17,7 @@ if __name__ == '__main__':
     PORT = os.getenv("PORT")
 
     cm = CypherManager()
-    cm.delete_all_nodes()
+    # cm.delete_all_nodes()
     db_manager = SentenceUploader(cm)
     skill_installer = SkillInstaller(db_manager)
 
@@ -50,5 +52,12 @@ if __name__ == '__main__':
     def install_selected_skill():
         install_skill(skill_installer, '0')
         return 'OK'
+
+    @app.route('/test')
+    def test():
+        assistant = Assistant(cypher_manager=cm)
+        answer = assistant.get_answer('Сколько сейчас времени?')
+        print(answer)
+        return answer
 
     app.run(debug=True, host='localhost', port=PORT)

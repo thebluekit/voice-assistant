@@ -2,8 +2,8 @@ from model.database.node import nodeError
 
 
 class Node(object):
-    node_type = -1
-    node_id = None
+    node_type = None
+    node_id = -1
     node_params = {}
 
     def __init__(self, node_type: str, node_params: dict, node_id: int = -1):
@@ -48,3 +48,6 @@ class Node(object):
             return node_params
         else:
             raise nodeError.PublishError()
+
+    def __eq__(self, other):
+        return self.node_id == other.node_id
