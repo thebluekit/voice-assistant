@@ -8,6 +8,7 @@ SCRIPTS_FOLDER = constants.SCRIPTS_FOLDER
 STANDARD_SCRIPT = constants.STANDARD_SCRIPT
 STANDARD_PARAMS = constants.STANDARD_PARAMS
 
+
 class MessageRecognizer:
     ERROR_MESSAGE = 'NOT_RECOGNIZED'
 
@@ -42,7 +43,19 @@ class MessageRecognizer:
             params["entity"].update(entity)
             params["context"].update(context)
 
-        scripts_name = params["action"] & params["entity"] & params["context"]
+        print(params)
+
+        params_li = [params["action"], params["entity"], params["context"]]
+        scripts_name = set()
+        for param in params_li:
+            if len(param) != 0:
+                if len(scripts_name) != 0:
+                    scripts_name = scripts_name & param
+                else:
+                    scripts_name = param
+
+        if len(scripts_name) == 0:
+            return STANDARD_SCRIPT
         script_name = sample(scripts_name, 1)[0]
         return script_name
 
