@@ -26,18 +26,23 @@ class CypherManager:
             given_type = str(type(password).__name__)
             raise cypherError.ConnectTypeError("database password type", expected_type, given_type)
 
+        graph = py2neo.Graph(ip_address, password=password)
         try:
-            graph = py2neo.Graph(ip_address, password=password)
+            graph.run("Match () Return 1 Limit 1")
             return graph
-        # except py2neo.database.work.ClientError:
-        #     raise cypherError.LoginError() from None
-        except AttributeError:
-            raise cypherError.ConnectionProfileError()
         except Exception as ex:
-            if 'Cannot open connection to' in str(ex.args):
-                raise cypherError.ConnectError() from None
-            else:
-                raise ex
+            raise cypherError.ConnectError() from None
+
+        # try:
+        #     graph = py2neo.Graph(ip_address, password=password)
+        #     return graph
+        # except AttributeError:
+        #     raise cypherError.ConnectionProfileError()
+        # except Exception as ex:
+        #     if 'Cannot open connection to' in str(ex.args):
+        #         raise cypherError.ConnectError() from None
+        #     else:
+        #         raise ex
 
     @staticmethod
     def __load_from_dotenv():
