@@ -1,10 +1,11 @@
-from controller.skill_upload import upload_skill, check_skill
-from controller.skill_install import install_skill
 from model.database.cypher import CypherManager
 from model.sentence.uploader import SentenceUploader
 from model.skill.skill_installer import SkillInstaller
-
 from model.assistant import Assistant
+
+from controller.skill_upload import upload_skill, check_skill
+from controller.skill_install import install_skill
+from controller.assistant import get_answer
 
 from flask import Flask, request, render_template
 from dotenv import load_dotenv
@@ -20,6 +21,7 @@ if __name__ == '__main__':
     # cm.delete_all_nodes()
     db_manager = SentenceUploader(cm)
     skill_installer = SkillInstaller(db_manager)
+    assistant = Assistant(cypher_manager=cm)
 
     app = Flask(__name__)
 
@@ -60,8 +62,7 @@ if __name__ == '__main__':
     @app.route('/getMessage')
     def get_message():
         message = request.args.get("message")
-        assistant = Assistant(cypher_manager=cm)
-        answer = assistant.get_answer(message)
+        answer = get_answer(assistant, message)
         return answer
 
     app.run(debug=True, host='localhost', port=PORT)
