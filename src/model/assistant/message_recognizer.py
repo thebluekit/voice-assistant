@@ -43,8 +43,6 @@ class MessageRecognizer:
             params["entity"].update(entity)
             params["context"].update(context)
 
-        print(params)
-
         params_li = [params["action"], params["entity"], params["context"]]
         scripts_name = set()
         for param in params_li:
