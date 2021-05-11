@@ -1,14 +1,23 @@
-<div class="skill-box">
-    <div class="skill-content skill-green">
-        <h1 class="skill-number">01</h1>
+window.skillShow = [0, 4];
+
+function clearSkills() {
+    let skillsContainer = document.getElementById('app');
+    skillsContainer.innerHTML = '';
+}
+
+function addSkillView(skillIndex, skillDate, skillName, skillDescription, skillColor) {
+    let skillsContainer = document.getElementById('app');
+    let skillHTML = `<div class="skill-box">
+    <div class="skill-content ${skillColor}">
+        <h1 class="skill-number">${skillIndex}</h1>
         <div class="skill-description">
-            <p class="skill-date">24 января 2021</p>
-            <h2 class="skill-name">Помощник в акциях</h2>
-            <p class="skill-description-text">С легкостью подскажет текущий курс валют а также стоимость ценных бумаг на рынке</p>
+            <p class="skill-date">${skillDate}</p>
+            <h2 class="skill-name">${skillName}</h2>
+            <p class="skill-description-text">${skillDescription}</p>
         </div>
     </div>
     <div class="skill-options">
-        <div class="options-box" id="edit-skill">
+        <div class="options-box" id="edit-skill" onclick='editSkill(this)'>
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 477.873 477.873" style="enable-background:new 0 0 477.873 477.873;" xml:space="preserve">
                 <path d="M392.533,238.937c-9.426,0-17.067,7.641-17.067,17.067V426.67c0,9.426-7.641,17.067-17.067,17.067H51.2
                     c-9.426,0-17.067-7.641-17.067-17.067V85.337c0-9.426,7.641-17.067,17.067-17.067H256c9.426,0,17.067-7.641,17.067-17.067
@@ -21,9 +30,9 @@
                     L390.468,43.353c12.202-12.178,31.967-12.158,44.145,0.044c5.817,5.829,9.095,13.72,9.12,21.955
                     C443.754,73.631,440.467,81.575,434.603,87.419z"/>
             </svg>
-
+    
         </div>
-        <div class="options-box" id="install-skill">
+        <div class="options-box" id="install-skill" onclick='installSkill(this)'>
             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 477.867 477.867" style="enable-background:new 0 0 477.867 477.867;" xml:space="preserve">
                 <path d="M443.733,307.2c-9.426,0-17.067,7.641-17.067,17.067v102.4c0,9.426-7.641,17.067-17.067,17.067H68.267
                     c-9.426,0-17.067-7.641-17.067-17.067v-102.4c0-9.426-7.641-17.067-17.067-17.067s-17.067,7.641-17.067,17.067v102.4
@@ -52,26 +61,102 @@
             </svg>
         </div>
     </div>
-</div>
-<div class="skill-box">
-    <div class="skill-content skill-purple">
-        <h1 class="skill-number">01</h1>
-        <div class="skill-description">
-            <p class="skill-date">24 января 2021</p>
-            <h2 class="skill-name">Помощник в акциях</h2>
-            <p class="skill-description-text">С легкостью подскажет текущий курс валют а также стоимость ценных бумаг на рынке</p>
-        </div>
-    </div>
-    <div class="skill-options">
-    </div>
-</div>
-<div class="skill-box">
+    </div>`;
 
-</div>
-<div class="skill-box">
+    // let t = skillHTML.getElementsByClassName('options-box');
+    // console.log(t);
+    //     let nextArrow = document.getElementById('arrow-next');
 
-</div>
-<!-- <div class="skill-content skill-blue"></div> -->
-<!-- <div class="skill-content skill-gray"></div>
-<div class="skill-content skill-green"></div>
-<div class="skill-content skill-red"></div> -->
+    // prevArrow.addEventListener('click', function(event) {
+    //     let currentRoute = getCurrentAnchor();
+    //     if (currentRoute == '' || currentRoute == 'market') {
+    //         clearSkills();
+    //         window.skillShow[0] -= 4;
+    //         window.skillShow[1] -= 4;
+    //         setSkills();
+    //     } else if (currentRoute == 'add-skill-step-1') {} else {
+    //         history.back()
+    //     }
+    // });
+
+    skillsContainer.innerHTML += skillHTML;
+}
+
+function installSkill(element) {
+    let skillId = getSkillId(element);
+    console.log(skillId);
+}
+
+function editSkill(element) {
+    let skillId = getSkillId(element);
+    console.log(skillId);
+}
+
+function getSkillId(btnElement) {
+    let mainElement = btnElement.parentElement.parentElement;
+    let skillElement = mainElement.getElementsByClassName('skill-content')[0];
+
+    let skillId = skillElement.getElementsByClassName('skill-number')[0].innerHTML;
+    skillId = parseInt(skillId) - 1;
+
+    return skillId;
+}
+
+const getAllSkillsUrl = '/getAllSkills'
+
+function getAllSkills() {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = (e) => {
+            if (xhr.readyState !== 4) {
+                return;
+            }
+            if (xhr.status === 200) {
+                let res = JSON.parse(xhr.responseText);
+                resolve(res);
+            } else {
+                console.warn('request_error');
+            }
+        };
+        let url = getAllSkillsUrl;
+        xhr.open('GET', url);
+        xhr.send();
+    });
+}
+
+function createEmptySkill() {
+    let skillsContainer = document.getElementById('app');
+    skillsContainer.innerHTML += '<div class="skill-box"></div>'
+}
+
+function setSkills() {
+    let skillColors = ['skill-green', 'skill-purple', 'skill-red', 'skill-gray'];
+    getAllSkills().then(res => {
+        let start = window.skillShow[0];
+        let stop = window.skillShow[1];
+        let skillsProps = res['skills'].slice(start, stop);
+        for (let i = 0; i < skillsProps.length; i++) {
+            let skillId = (start + i + 1).toString();
+            if (i < 9) {
+                skillId = '0' + skillId;
+            }
+
+            let skillName = skillsProps[i]['skillName'];
+            let skillDescription = skillsProps[i]['skillDescription'];
+            let skillDate = skillsProps[i]['skillDate'];
+
+            addSkillView(skillId, skillDate, skillName, skillDescription, skillColors[i]);
+        }
+
+        for (let i = 0; i < 4 - skillsProps.length; i++) {
+            createEmptySkill();
+        }
+
+        console.log(res);
+    })
+}
+
+function loadMarket() {
+    clearSkills();
+    setSkills();
+}

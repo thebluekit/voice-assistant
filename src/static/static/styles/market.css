@@ -108,7 +108,7 @@ body {
     /* border: 1px solid red; */
 }
 
-.skill-content {
+.skill-box {
     width: 20%;
     height: 100%;
     border-radius: 8px;
@@ -116,11 +116,67 @@ body {
     display: flex;
     flex-direction: column;
     transition: all 0.7s ease;
+    /* border: 1px solid red; */
+}
+
+.skill-box:hover~.skill-options {
+    margin-top: 0;
+    /* background-color: purple; */
+}
+
+.skill-options {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: -75px;
+    transition: all 0.7s ease;
+    z-index: 0;
+}
+
+.skill-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    transition: all 0.7s ease;
+    /* border: 1px solid red; */
+    z-index: 1;
+    margin-bottom: 17px;
+}
+
+.options-box {
+    width: 37px;
+    height: 37px;
+    /* border: 1px solid purple; */
+    overflow: visible
+}
+
+.options-box svg {
+    transition: all 0.7s ease;
+    fill: #898989;
+}
+
+.options-box svg:hover {
+    transition: all 0.7s ease;
+    fill: black;
+    cursor: pointer;
 }
 
 .skill-content:hover {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.17);
     cursor: pointer;
+}
+
+.skill-options:hover {
+    margin-top: 0;
+}
+
+.skill-content:hover~.skill-options {
+    margin-top: 0;
 }
 
 .skill-number {

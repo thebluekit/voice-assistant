@@ -32,6 +32,7 @@ function changedUrl() {
     }
     if (currentAnchor == 'market' || currentAnchor == '') {
         setMarketSettings();
+        loadMarket();
     } else if ((currentAnchor == 'add-skill-step-1') || (currentAnchor == 'add-skill-step-2') || (currentAnchor == 'add-skill-step-3') || (currentAnchor == 'skill-was-uploaded')) {
         setAddSkillSettings();
     }
