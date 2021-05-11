@@ -7,10 +7,11 @@ from controller.skill_upload import upload_skill, check_skill
 from controller.skill_install import install_skill
 from controller.assistant import get_answer
 
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from dotenv import load_dotenv
 import os
 
+from model.skill.skill_modifier import get_all_skills
 
 if __name__ == '__main__':
     load_dotenv()
@@ -64,5 +65,11 @@ if __name__ == '__main__':
         message = request.args.get("message")
         answer = get_answer(assistant, message)
         return answer
+
+    @app.route('/getAllSkills', methods=['GET'])
+    def get_skills():
+        all_skills = get_all_skills()
+        d = {'skills': all_skills}
+        return jsonify(d)
 
     app.run(debug=True, host='localhost', port=PORT)
