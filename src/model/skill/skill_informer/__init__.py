@@ -12,6 +12,16 @@ def get_skill_properties(data):
     return skill_properties
 
 
+def get_skill_id(data):
+    if 'skillId' in data:
+        if data['skillId'] != '':
+            return int(data['skillId'])
+        else:
+            return -1
+    else:
+        return -1
+
+
 def get_converted_activators(phrases):
     sc = SentenceConverter()
     for i in range(len(phrases)):

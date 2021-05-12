@@ -19,12 +19,15 @@ def generate_script_id():
         return 0
 
 
-def save(skill_properties, skill_script):
-    folder = str(generate_script_id())
-    try:
-        os.mkdir(SKILLS_FOLDER + folder)
-    except FileExistsError:
-        pass
+def save(skill_properties, skill_script, skill_id=-1):
+    if skill_id == -1:
+        folder = str(generate_script_id())
+        try:
+            os.mkdir(SKILLS_FOLDER + folder)
+        except FileExistsError:
+            pass
+    else:
+        folder = str(skill_id)
 
     skill_path = SKILLS_FOLDER + folder + '/' + "skillProperties.json"
     script_path = SKILLS_FOLDER + folder + '/' + "script.py"

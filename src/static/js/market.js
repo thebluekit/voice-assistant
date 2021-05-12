@@ -63,33 +63,30 @@ function addSkillView(skillIndex, skillDate, skillName, skillDescription, skillC
     </div>
     </div>`;
 
-    // let t = skillHTML.getElementsByClassName('options-box');
-    // console.log(t);
-    //     let nextArrow = document.getElementById('arrow-next');
-
-    // prevArrow.addEventListener('click', function(event) {
-    //     let currentRoute = getCurrentAnchor();
-    //     if (currentRoute == '' || currentRoute == 'market') {
-    //         clearSkills();
-    //         window.skillShow[0] -= 4;
-    //         window.skillShow[1] -= 4;
-    //         setSkills();
-    //     } else if (currentRoute == 'add-skill-step-1') {} else {
-    //         history.back()
-    //     }
-    // });
-
     skillsContainer.innerHTML += skillHTML;
 }
 
 function installSkill(element) {
     let skillId = getSkillId(element);
-    console.log(skillId);
+    installSkillOnServer(skillId);
 }
 
 function editSkill(element) {
     let skillId = getSkillId(element);
-    console.log(skillId);
+    getSkillPropsFromServer(skillId).then(res => {
+        window.skillObj = {
+            "skillName": res['skillName'],
+            "skillDescription": res['skillDescription'],
+            "phrases": res['phrases'],
+            "skillConstants": res['skillConstants'],
+            "skillScript": null,
+            "skillDate": getCurrentDate(),
+            "skillStep": 1,
+            "skillId": res['id']
+        }
+        goToAnchor('add-skill-step-1');
+        console.log(window.skillObj);
+    })
 }
 
 function getSkillId(btnElement) {
@@ -119,6 +116,50 @@ function getAllSkills() {
             }
         };
         let url = getAllSkillsUrl;
+        xhr.open('GET', url);
+        xhr.send();
+    });
+}
+
+const installSkillUrl = '/installSkill?'
+
+function installSkillOnServer(skillId) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = (e) => {
+            if (xhr.readyState !== 4) {
+                return;
+            }
+            if (xhr.status === 200) {
+                let res = xhr.responseText;
+                resolve(res);
+            } else {
+                console.warn('request_error');
+            }
+        };
+        let url = installSkillUrl + 'skillId=' + skillId.toString();
+        xhr.open('GET', url);
+        xhr.send();
+    });
+}
+
+const getSkillPropsUrl = '/getSkillProps?'
+
+function getSkillPropsFromServer(skillId) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = (e) => {
+            if (xhr.readyState !== 4) {
+                return;
+            }
+            if (xhr.status === 200) {
+                let res = JSON.parse(xhr.responseText);
+                resolve(res);
+            } else {
+                console.warn('request_error');
+            }
+        };
+        let url = getSkillPropsUrl + 'skillId=' + skillId.toString();
         xhr.open('GET', url);
         xhr.send();
     });

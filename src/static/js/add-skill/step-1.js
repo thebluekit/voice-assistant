@@ -15,7 +15,8 @@ window.skillObj = {
     "skillConstants": [],
     "skillScript": null,
     "skillDate": getCurrentDate(),
-    "skillStep": 1
+    "skillStep": 1,
+    "skillId": ''
 }
 
 function loadStep1() {
@@ -51,6 +52,6 @@ function loadStep1() {
     }, 100);
 
     nextArrow.addEventListener('click', function(event) {
-        console.log(window.skillObj)
+        // console.log(window.skillObj)
     });
 }

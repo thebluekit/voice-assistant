@@ -112,7 +112,7 @@ function getFileBytes() {
         var arrayBuffer = this.result,
             array = new Uint8Array(arrayBuffer),
             binaryString = String.fromCharCode.apply(null, array);
-        window.skillObj["skillScript"] = binaryString;
+        window.skillObj["skillScript"] = new TextDecoder().decode(array);
 
     }
     reader.readAsArrayBuffer(this.files[0]);

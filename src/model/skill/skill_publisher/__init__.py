@@ -18,7 +18,9 @@ class SkillPublisher:
         validation = self.__check_skill_properties(skill_data)
         if validation == 'OK':
             skill_properties = skill_info.get_skill_properties(skill_data)
+            skill_id = skill_info.get_skill_id(skill_data)
+            # print(skill_id)
             skill_script = skill_info.get_skill_script(skill_data)
 
-            skill_saver.save(skill_properties, skill_script)
+            skill_saver.save(skill_properties, skill_script, skill_id)
         return validation

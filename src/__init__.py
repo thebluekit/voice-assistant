@@ -11,7 +11,7 @@ from flask import Flask, request, render_template, jsonify
 from dotenv import load_dotenv
 import os
 
-from model.skill.skill_modifier import get_all_skills
+from model.skill.skill_modifier import get_all_skills, get_current_skill
 
 if __name__ == '__main__':
     load_dotenv()
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     PORT = os.getenv("PORT")
 
     cm = CypherManager()
-    # cm.delete_all_nodes()
+    cm.delete_all_nodes()
     db_manager = SentenceUploader(cm)
     skill_installer = SkillInstaller(db_manager)
     assistant = Assistant(cypher_manager=cm)
@@ -46,6 +46,7 @@ if __name__ == '__main__':
     @app.route('/addSkill', methods=['POST'])
     def add_skill():
         data = request.json
+        print(data)
         upload_status = upload_skill(data)
         return upload_status
 
@@ -57,7 +58,8 @@ if __name__ == '__main__':
 
     @app.route('/installSkill')
     def install_selected_skill():
-        install_skill(skill_installer, '0')
+        skill_id = request.args.get("skillId")
+        install_skill(skill_installer, skill_id)
         return 'OK'
 
     @app.route('/getMessage')
@@ -71,5 +73,12 @@ if __name__ == '__main__':
         all_skills = get_all_skills()
         d = {'skills': all_skills}
         return jsonify(d)
+
+    @app.route('/getSkillProps', methods=['GET'])
+    def get_skill_props():
+        skill_id = request.args.get("skillId")
+        skill_props = get_current_skill(skill_id)
+        skill_props['id'] = skill_id
+        return jsonify(skill_props)
 
     app.run(debug=True, host='localhost', port=PORT)
